@@ -39,7 +39,7 @@ fn clone_libusb() -> io::Result<()> {
 			.status()?;
 	} else {
 		Command::new("git")
-			.current_dir(&output())
+			.current_dir(&source(LIBUSB_DIR))
 			.arg("pull")
 			.arg("https://github.com/AccuPS/libusb")
 			.arg("android")
@@ -61,7 +61,7 @@ fn clone_hidapi() -> io::Result<()> {
 			.status()?;
 	} else {
 		Command::new("git")
-			.current_dir(&output())
+			.current_dir(&source(HIDAPI_DIR))
 			.arg("pull")
 			.arg("https://github.com/AccuPS/hidapi")
 			.arg("android_15")
