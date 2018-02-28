@@ -27,7 +27,7 @@ pub struct hid_device_info {
 	pub next: *mut hid_device_info,
 }
 
-#[cfg_attr(any(target_os = "linux", target_os = "android"), link(name = "udev"))]
+#[cfg_attr(target_os = "linux", link(name = "udev"))]
 extern "C" { }
 
 #[cfg_attr(target_os = "windows", link(name = "setupapi"))]
