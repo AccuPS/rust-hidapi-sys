@@ -28,25 +28,45 @@ fn source(lib: &str) -> PathBuf {
 }
 
 fn clone_libusb() -> io::Result<()> {
-	Command::new("git")
-		.current_dir(&output())
-		.arg("clone")
-		.arg("https://github.com/AccuPS/libusb")
-		.arg(LIBUSB_DIR)
-		.arg("--branch")
-		.arg("android")
-		.status()?;
+	if !std::path::Path::new(&source(LIBUSB_DIR)).exists() {
+		Command::new("git")
+			.current_dir(&output())
+			.arg("clone")
+			.arg("https://github.com/AccuPS/libusb")
+			.arg(LIBUSB_DIR)
+			.arg("--branch")
+			.arg("android")
+			.status()?;
+	} else {
+		Command::new("git")
+			.current_dir(&output())
+			.arg("pull")
+			.arg("https://github.com/AccuPS/libusb")
+			.arg("android")
+			.status()?;
+	}
 
 	Ok(())
 }
 
 fn clone_hidapi() -> io::Result<()> {
-	Command::new("git")
-		.current_dir(&output())
-		.arg("clone")
-		.arg("https://github.com/AccuPS/hidapi")
-		.arg(HIDAPI_DIR)
-		.status()?;
+	if !std::path::Path::new(&source(HIDAPI_DIR)).exists() {
+		Command::new("git")
+			.current_dir(&output())
+			.arg("clone")
+			.arg("https://github.com/AccuPS/hidapi")
+			.arg(HIDAPI_DIR)
+			.arg("--branch")
+			.arg("android_15")
+			.status()?;
+	} else {
+		Command::new("git")
+			.current_dir(&output())
+			.arg("pull")
+			.arg("https://github.com/AccuPS/hidapi")
+			.arg("android_15")
+			.status()?;
+	}
 
 	Ok(())
 }
