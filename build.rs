@@ -71,7 +71,7 @@ fn clone_hidapi() -> io::Result<()> {
 	Ok(())
 }
 
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os="android"))]
 fn build_libusb() -> io::Result<()> {
 	let mut build = cc::Build::new();
 
@@ -102,7 +102,7 @@ fn build_libusb() -> io::Result<()> {
 	Ok(())
 }
 
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os="android"))]
 fn build_hidapi() -> io::Result<()> {
 	let mut build = cc::Build::new();
 
