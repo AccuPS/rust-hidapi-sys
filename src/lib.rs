@@ -27,16 +27,6 @@ pub struct hid_device_info {
 	pub next: *mut hid_device_info,
 }
 
-#[repr(C)]
-pub struct libusb_context {
-	__private: c_void
-}
-
-#[repr(C)]
-pub struct libusb_device_handle {
-	__private: c_void
-}
-
 #[cfg_attr(target_os = "linux", link(name = "udev"))]
 extern "C" { }
 
@@ -77,7 +67,10 @@ extern "C" {
 	pub fn hid_error(device: *mut hid_device) -> *const wchar_t;
 }
 
+#[allow(non_upper_case_globals)]
+#[allow(non_camel_case_types)]
+#[allow(non_snake_case)]
 #[cfg_attr(any(target_os = "linux", target_os = "android"), link(name = "usb-1.0", kind = "static"))]
-extern "C" {
-	pub fn libusb_wrap_fd(ctx: *mut libusb_context, fd: c_int, dev_handle: *mut *mut libusb_device_handle) -> c_int;
+pub mod libusb {
+	include!(concat!(env!("OUT_DIR"), "/libusb.rs"));
 }

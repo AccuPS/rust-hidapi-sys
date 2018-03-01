@@ -1,5 +1,6 @@
 extern crate cc;
 extern crate pkg_config;
+extern crate bindgen;
 
 use std::env;
 use std::io;
@@ -98,6 +99,15 @@ fn build_libusb() -> io::Result<()> {
 	build.shared_flag(true);
 
 	build.compile("usb-1.0");
+
+	let header = source(LIBUSB_DIR).join("libusb/libusb.h");
+	let header = header.to_str().unwrap();
+	let bindings = bindgen::Builder::default()
+		.header(header)
+		.generate()
+		.expect("libusb bindings not generated");
+	bindings.write_to_file(output().join("libusb.rs"))
+		.expect("libusb bindings not written");
 
 	Ok(())
 }
