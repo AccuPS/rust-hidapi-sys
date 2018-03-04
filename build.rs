@@ -105,7 +105,7 @@ fn build_libusb() -> io::Result<()> {
 	let bindings = bindgen::Builder::default()
 		.header(header)
 		.generate()
-		.expect("libusb bindings not generated");
+		.expect("libusb bindings not generated\n- gnu/stubs-32.h fix https://stackoverflow.com/a/7412698");
 	bindings.write_to_file(output().join("libusb.rs"))
 		.expect("libusb bindings not written");
 
