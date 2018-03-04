@@ -41,6 +41,8 @@ extern "C" {
 	pub fn hid_init() -> c_int;
 	pub fn hid_exit() -> c_int;
 
+	pub fn hid_get_libusb_context() -> *mut libusb::libusb_context;
+
 	pub fn hid_enumerate(vendor_id: c_ushort, product_id: c_ushort) -> *mut hid_device_info;
 	pub fn hid_free_enumeration(devs: *mut hid_device_info);
 
